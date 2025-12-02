@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les actualités de la paie - Formation Opaierationnelle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bleu-canard: #2B7A8C;
+            --rose: #C8798F;
+            --bleu-clair: #63B3C7;
+            --gris-clair: #f5f5f5;
+            --gris-moyen: #666;
+            --blanc: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--blanc);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bleu-canard) 0%, var(--bleu-clair) 100%);
+            color: var(--blanc);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: var(--blanc);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--rose);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .info-card h3 {
+            color: var(--bleu-canard);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: var(--gris-moyen);
+        }
+
+        .section {
+            background: var(--blanc);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            color: var(--bleu-canard);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--rose);
+            padding-bottom: 0.5rem;
+        }
+
+        .points-forts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .point {
+            background: var(--gris-clair);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--bleu-canard);
+        }
+
+        .competences-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .competences-list li {
+            padding: 0.75rem 0.75rem 0.75rem 2rem;
+            margin: 0.5rem 0;
+            background: var(--gris-clair);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .competences-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0.75rem;
+            color: var(--rose);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .accordion {
+            margin: 1.5rem 0;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 2px solid var(--gris-clair);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--bleu-clair);
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, var(--bleu-canard) 0%, var(--bleu-clair) 100%);
+            color: var(--blanc);
+            padding: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            opacity: 0.95;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: var(--blanc);
+        }
+
+        .accordion-content-inner {
+            padding: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .accordion-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .accordion-content li {
+            margin: 0.5rem 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, var(--rose) 0%, transparent 100%);
+            background-size: 100% 40%;
+            background-position: 0 90%;
+            background-repeat: no-repeat;
+            padding: 0.2rem 0;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .download-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--rose) 0%, #D68FA5 100%);
+            color: var(--blanc);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(200, 121, 143, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(200, 121, 143, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--bleu-canard) 0%, var(--bleu-clair) 100%);
+            color: var(--blanc);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            margin: 1rem 0;
+        }
+
+        .footer-contact a {
+            color: var(--blanc);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer-links a {
+            color: var(--blanc);
+            text-decoration: underline;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                max-width: 280px;
+            }
+
+            .footer-contact a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media print {
+            .btn-download {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'%3E%3Ctext x='800' y='200' font-family='Arial' font-size='120' fill='white' text-anchor='middle' dominant-baseline='middle'%3EopaieRATIONNELLE%3C/text%3E%3Ccircle cx='100' cy='120' r='25' fill='%2363B3C7'/%3E%3Ccircle cx='100' cy='180' r='25' fill='%232B7A8C'/%3E%3Ccircle cx='100' cy='240' r='25' fill='%23C8798F'/%3E%3Ctext x='800' y='300' font-family='Arial' font-size='48' fill='white' text-anchor='middle' font-style='italic'%3EVotre alliée en gestion de paie %26 RH%3C/text%3E%3C/svg%3E" alt="Logo Opaierationnelle" class="logo">
+        <h1>Les actualités de la paie</h1>
+        <p>Une formation opérationnelle conçue pour sécuriser votre processus paie</p>
+    </header>
+
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📅 Date</h3>
+                <p><strong>1er décembre 2025</strong></p>
+                <p>14h de formation (2 journées de 7h)</p>
+            </div>
+            <div class="info-card">
+                <h3>📍 Lieu</h3>
+                <p><strong>Le Pallet</strong></p>
+                <p>20 rue de l'avenir<br>44330 Le Pallet</p>
+            </div>
+            <div class="info-card">
+                <h3>👥 Public</h3>
+                <p>Gestionnaires de paie<br>Responsables paie</p>
+                <p><strong>7 participants maximum</strong></p>
+            </div>
+            <div class="info-card">
+                <h3>✅ Certification</h3>
+                <p><strong>Formation éligible Qualiopi</strong></p>
+                <p>Attestation de fin de formation</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2>🎯 Objectifs de la formation</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8;">Maintenir à jour ses connaissances en gestion de la paie et intégrer les dernières évolutions légales et réglementaires pour <span class="highlight">sécuriser votre processus paie</span>.</p>
+        </section>
+
+        <section class="section">
+            <h2>⭐ Les points forts</h2>
+            <div class="points-forts">
+                <div class="point">
+                    <strong>💼 100% opérationnelle</strong>
+                    <p>Formation ancrée dans la pratique quotidienne</p>
+                </div>
+                <div class="point">
+                    <strong>🔍 Cas pratiques réels</strong>
+                    <p>Exercices issus de situations concrètes</p>
+                </div>
+                <div class="point">
+                    <strong>📚 FOCUS thématiques</strong>
+                    <p>Rappels des règles de base essentielles</p>
+                </div>
+                <div class="point">
+                    <strong>🤝 Accompagnement post-formation</strong>
+                    <p>Service après-vente inclus</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🎓 Compétences visées</h2>
+            <ul class="competences-list">
+                <li>Analyser les évolutions légales et réglementaires et en déduire leurs impacts sur la paie</li>
+                <li>Appliquer les bonnes pratiques permettant de sécuriser et fiabiliser le processus de paie</li>
+                <li>Communiquer des réponses fiables et argumentées aux salariés sur les éléments de paie</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>📋 Programme détaillé - 2ème semestre 2025</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 1 : Les nouveaux taux et chiffres 2025</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Thèmes abordés :</strong></p>
+                            <ul>
+                                <li>RGCP (Réduction Générale des Cotisations Patronales)</li>
+                                <li>Cotisations patronales assurance chômage</li>
+                                <li>Sécurité Sociale et Famille</li>
+                                <li>PAS de l'IR (Prélèvement à la Source)</li>
+                                <li>Taux AT/MP (Accidents du Travail / Maladies Professionnelles)</li>
+                                <li>IJSS maladie non professionnelle</li>
+                                <li>RSA (Revenu de Solidarité Active)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 2 : Les autres mesures</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Nouveautés à intégrer :</strong></p>
+                            <ul>
+                                <li>Arrêts de travail papier</li>
+                                <li>Saisies des rémunérations</li>
+                                <li>APLD (Activité Partielle de Longue Durée)</li>
+                                <li>Parcours PMA - adoption</li>
+                                <li>Pics de chaleur</li>
+                                <li>Financement de l'apprentissage</li>
+                                <li>Nouvelle signalisation « espace sans tabac »</li>
+                                <li>Retraite progressive</li>
+                            </ul>
+                            <p><strong>🎯 Exercice d'application :</strong> Répondre à un salarié sur les arrêts de travail papier, PMA et retraite progressive</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 3 : Les évolutions prévues en DSN</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Signalement « déclaration préalable à l'embauche »</li>
+                                <li>Fiches récapitulatives DOETH</li>
+                                <li>Fiabilisation des données DSN</li>
+                            </ul>
+                            <p><strong>📝 Quiz :</strong> Intégrer les nouveaux chiffres et taux - Les évolutions DSN</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 4 : Les nouveautés du BOSS</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Apprenti : nouvelles règles</li>
+                                <li>Allégements généraux de cotisations patronales</li>
+                                <li>Espace « rescrits »</li>
+                                <li>Faits générateurs de cotisations</li>
+                            </ul>
+                            <p><strong>🎯 Exercice d'application :</strong> Calcul des cotisations sociales d'un apprenti</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>FOCUS : L'annualisation du temps de travail</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Rappel complet des règles de base</strong></p>
+                            <p><strong>🎯 Exercice d'application :</strong> Mise en œuvre de l'annualisation du temps de travail en cas d'entrée et sortie en cours de période de référence, d'absences...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 5 : Les projets en cours</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Simplification de la vie économique</li>
+                                <li>Réforme du congé parental</li>
+                                <li>Modernisation des titres restaurant</li>
+                                <li>QPC congé paternité</li>
+                                <li>Jours fériés</li>
+                                <li>Don du sang</li>
+                                <li>Acomptes sur salaire</li>
+                                <li>RGCP 2026</li>
+                                <li>Emploi des salariés seniors</li>
+                                <li>Transparence des rémunérations : directive européenne 2023/970</li>
+                                <li>Impacts de la chute du gouvernement</li>
+                            </ul>
+                            <p><strong>🎯 Analyse :</strong> Impact de ces projets en cours sur vos pratiques</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Module 6 : L'essentiel sur la jurisprudence</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <p><strong>Jurisprudences récentes :</strong></p>
+                            <ul>
+                                <li>Maintien garanties prévoyance</li>
+                                <li>Paiement / déclarations tardives URSSAF et majorations de retard</li>
+                                <li>Rémunération variable et arrêt de travail</li>
+                                <li>Départ à la retraite VS mise à la retraite</li>
+                                <li>Paiement des majorations de salaire</li>
+                                <li>Prise de CP (Congés Payés)</li>
+                                <li>Discrimination salariale</li>
+                                <li>Temps de trajet</li>
+                                <li>Maladie et CP</li>
+                            </ul>
+                            <p><strong>🎯 Analyse :</strong> Impact des jurisprudences sur vos pratiques</p>
+                            <p><strong>📊 Autodiagnostic :</strong> Identification d'axes d'amélioration de vos pratiques</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-style: italic; margin-top: 1.5rem; padding: 1rem; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px;">
+                <strong>⚠️ Note importante :</strong> Ce programme est susceptible d'être modifié pour tenir compte des dernières actualités sociales et vous apporter une information à jour.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>📊 Modalités d'évaluation</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Avant la formation</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Recueil des attentes</li>
+                                <li>Évaluation diagnostic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Pendant la formation</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Quiz réguliers</li>
+                                <li>Cas pratiques intermédiaires</li>
+                                <li>Évaluation formative</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Fin de formation</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner">
+                            <ul>
+                                <li>Test de compétences</li>
+                                <li>Support remis au stagiaire : checklist synthétique des nouveautés</li>
+                                <li>Attestation de fin de formation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🎓 Modalités pédagogiques</h2>
+            <ul class="competences-list">
+                <li>Apports théoriques ciblés et courts</li>
+                <li>Exercices de mise en application continus</li>
+                <li>Approche active et andragogique, ancrée terrain</li>
+                <li>Service après-vente après la formation</li>
+                <li>Tarif dégressif en fonction du nombre de participants</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>📍 Localisation</h2>
+            <div id="map"></div>
+        </section>
+
+        <div class="download-section">
+            <a href="#" class="btn-download" onclick="window.print(); return false;">📥 Télécharger le programme PDF</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>📞 Contact</h3>
+            <div class="footer-contact">
+                <a href="mailto:contact@opaierationnelle.fr">✉️ contact@opaierationnelle.fr</a>
+                <a href="tel:0630860344">📱 06.30.86.03.44</a>
+            </div>
+            <div class="footer-links">
+                <a href="#" target="_blank">Politique d'inclusion</a> | 
+                <a href="#" target="_blank">Gestion du handicap</a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
+                © 2025 Opaierationnelle - Votre alliée en gestion de paie & RH
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const isActive = item.classList.contains('active');
+                
+                // Close all other accordion items
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                    }
+                });
+                
+                // Toggle current item
+                if (isActive) {
+                    item.classList.remove('active');
+                    content.style.maxHeight = null;
+                } else {
+                    item.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Initialize Google Maps
+        function initMap() {
+            const location = { lat: 47.1336, lng: -1.3297 };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: location,
+                styles: [
+                    {
+                        featureType: 'water',
+                        elementType: 'geometry',
+                        stylers: [{ color: '#2B7A8C' }]
+                    }
+                ]
+            });
+            
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: 'Formation Les actualités de la paie',
+                animation: google.maps.Animation.DROP
+            });
+
+            const infowindow = new google.maps.InfoWindow({
+                content: '<div style="padding: 10px;"><strong>Les actualités de la paie</strong><br>20 rue de l\'avenir<br>44330 Le Pallet<br>1er décembre 2025</div>'
+            });
+
+            marker.addListener('click', () => {
+                infowindow.open(map, marker);
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
